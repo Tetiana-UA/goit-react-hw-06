@@ -38,3 +38,7 @@
 .formButton:hover {
   background-color: azure;
 }
+
+.error {
+  color: red;
+}

@@ -1,6 +1,6 @@
 //Переписуємо компонент на хуки
 import { useState, useEffect, useRef } from "react";
-import { useId } from "react";
+import { nanoid } from "nanoid";
 
 import ContactsForm from "./components/ContactsForm/ContactsForm";
 import ContactsList from "./components/ContactsList/ContactsList";
@@ -53,7 +53,7 @@ const App = () => {
     }
 
     const newContact = {
-      id: useId(),
+      id: nanoid(),
       ...data,
     };
 
