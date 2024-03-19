@@ -11,11 +11,15 @@
   display: flex;
   justify-content: space-between;
   border: 1px solid;
+  padding: 5px 10px 5px 10px;
 }
 .listButton {
   width: 100px;
   height: 30px;
   border-radius: 5px;
+  font-size: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .listButton:hover {
   background-color: azure;

@@ -9,6 +9,7 @@ import { setNewFilter } from "./redux/filtersSlice";
 
 import styles from "./app.module.css";
 
+// Переписуємо книгу контактів на Redux Toolkit
 const App = () => {
   //const [contacts, setContacts] = useState(() => {
   // const data = JSON.parse(localStorage.getItem("my-contacts"));
@@ -48,7 +49,7 @@ const App = () => {
     return Boolean(dublicate);
   };
 
-  //додаємо контакт при сабміті форми функція передається як пропс onSubmitForm  для форми Formik
+  //додаємо контакт при сабміті форми (ця функція передається як пропс  для форми Formik)
   const onAddContact = (data) => {
     if (isDublicate(data)) {
       return alert(
@@ -62,6 +63,8 @@ const App = () => {
     //};
 
     //setContacts((prevContacts) => [...prevContacts, newContact]);
+
+    //dispatch відправляє action addContact - функцію, яка створює обєкт (import з contactsSlice.js) в reducer (описаний в contactsSlice.js), який потім обробляє action і змінює store
     dispatch(addContact(data));
   };
 
@@ -70,7 +73,7 @@ const App = () => {
     dispatch(deleteContact(id));
   };
 
-  //запис значення інпуту фільтрації
+  //запис значення інпуту для фільтрації
   const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
 
   //фільтрація контактів за значенням фільтру
@@ -89,7 +92,6 @@ const App = () => {
   };
 
   const items = getFilteredContacts();
-  console.log(items);
 
   return (
     <div className={styles.wraper}>
