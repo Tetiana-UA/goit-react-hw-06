@@ -1,4 +1,4 @@
-//Переписуємо компонент на хуки
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { nanoid } from "nanoid";
 
@@ -9,10 +9,11 @@ import Filter from "./components/Filter/Filter";
 import styles from "./app.module.css";
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const data = JSON.parse(localStorage.getItem("my-contacts"));
-    return data || [];
-  });
+  //const [contacts, setContacts] = useState(() => {
+  // const data = JSON.parse(localStorage.getItem("my-contacts"));
+  // return data || [];
+  //});
+  const contacts = useSelector((state) => state.contacts.items);
 
   const [filter, setFilter] = useState("");
   const firstRender = useRef(true);
