@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { nanoid } from "nanoid";
 
 import ContactsForm from "./components/ContactsForm/ContactsForm";
 import ContactsList from "./components/ContactsList/ContactsList";
 import Filter from "./components/Filter/Filter";
+import { addContact, deleteContact } from "./redux/contactsSlice";
 
 import styles from "./app.module.css";
 
@@ -14,6 +14,8 @@ const App = () => {
   // return data || [];
   //});
   const contacts = useSelector((state) => state.contacts.items);
+
+  const dispatch = useDispatch();
 
   const [filter, setFilter] = useState("");
   const firstRender = useRef(true);
@@ -45,7 +47,7 @@ const App = () => {
   };
 
   //додаємо контакт при сабміті форми функція передається як пропс onSubmitForm  для форми Formik
-  const addContact = (data) => {
+  const onAddContact = (data) => {
     console.log(data);
     if (isDublicate(data)) {
       return alert(
@@ -53,19 +55,18 @@ const App = () => {
       );
     }
 
-    const newContact = {
-      id: nanoid(),
-      ...data,
-    };
+    //const newContact = {
+    // id: nanoid(),
+    // ...data,
+    //};
 
-    setContacts((prevContacts) => [...prevContacts, newContact]);
+    //setContacts((prevContacts) => [...prevContacts, newContact]);
+    dispatch(addContact(data));
   };
 
-  //видадення контакту по id
-  const deleteContact = (id) => {
-    setContacts((prevContacts) =>
-      prevContacts.filter((item) => item.id !== id)
-    );
+  //видадення контакту (dispatch відправляє action deleteContact (import з contactsSlice.js) в store )
+  const onDeleteContact = (id) => {
+    dispatch(deleteContact(id));
   };
 
   //запис значення інпуту фільтрації
@@ -91,11 +92,11 @@ const App = () => {
   return (
     <div className={styles.wraper}>
       <h2 className={styles.title}>PhoneBook</h2>
-      <ContactsForm onSubmitForm={addContact} />
+      <ContactsForm onSubmitForm={onAddContact} />
 
       <h2 className={styles.title}>Contacts</h2>
       <Filter changeFilter={changeFilter} filter={filter} />
-      <ContactsList items={items} deleteContact={deleteContact} />
+      <ContactsList items={items} deleteContact={onDeleteContact} />
     </div>
   );
 };
