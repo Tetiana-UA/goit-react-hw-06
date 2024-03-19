@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import ContactsForm from "./components/ContactsForm/ContactsForm";
 import ContactsList from "./components/ContactsList/ContactsList";
 import Filter from "./components/Filter/Filter";
 import { addContact, deleteContact } from "./redux/contactsSlice";
+import { setNewFilter } from "./redux/filtersSlice";
 
 import styles from "./app.module.css";
 
@@ -14,10 +15,11 @@ const App = () => {
   // return data || [];
   //});
   const contacts = useSelector((state) => state.contacts.items);
+  const filter = useSelector ((state)=>state.filters.name);
 
   const dispatch = useDispatch();
 
-  const [filter, setFilter] = useState("");
+  //const [filter, setFilter] = useState("");
   const firstRender = useRef(true);
 
   useEffect(() => {
@@ -70,7 +72,7 @@ const App = () => {
   };
 
   //запис значення інпуту фільтрації
-  const changeFilter = ({ target }) => setFilter(target.value);
+  const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
 
   //фільтрація контактів за значенням фільтру
   const getFilteredContacts = () => {
@@ -96,7 +98,7 @@ const App = () => {
 
       <h2 className={styles.title}>Contacts</h2>
       <Filter changeFilter={changeFilter} filter={filter} />
-      <ContactsList items={items} deleteContact={onDeleteContact} />
+      <ContactsList items={items} removeContact={onDeleteContact} />
     </div>
   );
 };
