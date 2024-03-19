@@ -15,7 +15,7 @@ const App = () => {
   // return data || [];
   //});
   const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector ((state)=>state.filters.name);
+  const filter = useSelector((state) => state.filters.name);
 
   const dispatch = useDispatch();
 
@@ -50,7 +50,6 @@ const App = () => {
 
   //додаємо контакт при сабміті форми функція передається як пропс onSubmitForm  для форми Formik
   const onAddContact = (data) => {
-    console.log(data);
     if (isDublicate(data)) {
       return alert(
         `Contact with ${data.name} and ${data.number} already in list`
@@ -90,6 +89,7 @@ const App = () => {
   };
 
   const items = getFilteredContacts();
+  console.log(items);
 
   return (
     <div className={styles.wraper}>
