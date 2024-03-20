@@ -1,4 +1,4 @@
-import styles from "./filter.module.css";
+import styles from "./search-box.module.css";
 
 const Filter = ({ filter, changeFilter }) => {
   return (

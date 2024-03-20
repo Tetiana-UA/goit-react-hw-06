@@ -1,4 +1,4 @@
-import styles from "./contacts-list.module.css";
+import styles from "./contact-list.module.css";
 
 const ContactsList = ({ items, removeContact }) => {
   const elements = items.map(({ id, name, number }) => (

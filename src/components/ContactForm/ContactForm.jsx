@@ -2,7 +2,7 @@ import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import styles from "./contacts-form.module.css";
+import styles from "./contact-form.module.css";
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string()
