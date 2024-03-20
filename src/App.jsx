@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 import ContactsForm from "./components/ContactForm/ContactForm";
 import ContactsList from "./components/ContactList/ContactList";
-import Filter from "./components/SearchBox/SearchBox";
+import SearchBox from "./components/SearchBox/SearchBox";
 import { addContact, deleteContact } from "./redux/contactsSlice";
 import { setNewFilter } from "./redux/filtersSlice";
 
@@ -76,31 +76,12 @@ const App = () => {
   //запис значення інпуту для фільтрації
   const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
 
-  //фільтрація контактів за значенням фільтру
-  const getFilteredContacts = () => {
-    if (!filter) {
-      return contacts;
-    }
-
-    const normalizedFilter = filter.toLowerCase();
-
-    const filteredContacts = contacts.filter(({ name }) => {
-      const normalizedName = name.toLowerCase();
-      return normalizedName.includes(normalizedFilter);
-    });
-    return filteredContacts;
-  };
-
-  const items = getFilteredContacts();
-
   return (
     <div className={styles.wraper}>
       <h2 className={styles.title}>PhoneBook</h2>
       <ContactsForm onSubmitForm={onAddContact} />
-
-      <h2 className={styles.title}>Contacts</h2>
-      <Filter changeFilter={changeFilter} filter={filter} />
-      <ContactsList items={items} removeContact={onDeleteContact} />
+      <SearchBox changeFilter={changeFilter} />
+      <ContactsList removeContact={onDeleteContact} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import styles from "./search-box.module.css";
 
-const Filter = ({ filter, changeFilter }) => {
+const SearchBox = ({ filter, changeFilter }) => {
   return (
     <div className={styles.filter}>
       <label className={styles.filterLabel}>Find contacts by name</label>
@@ -14,4 +14,4 @@ const Filter = ({ filter, changeFilter }) => {
   );
 };
 
-export default Filter;
+export default SearchBox;
