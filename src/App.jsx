@@ -16,7 +16,6 @@ const App = () => {
   // return data || [];
   //});
   const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector((state) => state.filters.name);
 
   const dispatch = useDispatch();
 
