@@ -5,7 +5,7 @@ import ContactsForm from "./components/ContactForm/ContactForm";
 import ContactsList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import { addContact, deleteContact } from "./redux/contactsSlice";
-import { setNewFilter } from "./redux/filtersSlice";
+
 
 import styles from "./app.module.css";
 
@@ -73,13 +73,13 @@ const App = () => {
   };
 
   //запис значення інпуту для фільтрації
-  const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
+  //const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
 
   return (
     <div className={styles.wraper}>
       <h2 className={styles.title}>PhoneBook</h2>
       <ContactsForm onSubmitForm={onAddContact} />
-      <SearchBox changeFilter={changeFilter} />
+      <SearchBox />
       <ContactsList removeContact={onDeleteContact} />
     </div>
   );
