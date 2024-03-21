@@ -1,6 +1,8 @@
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
 import styles from "./contact-form.module.css";
 
@@ -16,10 +18,41 @@ const ContactSchema = Yup.object().shape({
 });
 
 // Kомпонент Форма контактів
-const ContactsForm = ({ onSubmitForm }) => {
+const ContactsForm = () => {
   const contactNameId = useId();
   const contactNumberId = useId();
 
+  const contacts = useSelector((state) => state.contacts.items);
+
+  const dispatch = useDispatch();
+
+  //Перевіряємо на повтори контактів при введенні
+  const isDublicate = ({ name, number }) => {
+    const normalizedName = name.toLowerCase();
+    const normalizedNumber = number.toLowerCase();
+
+    const dublicate = contacts.find((item) => {
+      const normalizedCurrentName = item.name.toLowerCase();
+      const normalizedCurrentNumber = item.number.toLowerCase();
+
+      return (
+        normalizedCurrentName === normalizedName ||
+        normalizedCurrentNumber === normalizedNumber
+      );
+    });
+    return Boolean(dublicate);
+  };
+
+  //додаємо контакт при сабміті форми (ця функція передається як пропс  для форми Formik)
+  const onAddContact = (data) => {
+    if (isDublicate(data)) {
+      return alert(
+        `Contact with ${data.name} and ${data.number} already in list`
+      );
+    }
+    //dispatch відправляє action addContact - функцію, яка створює обєкт (import з contactsSlice.js) в reducer (описаний в contactsSlice.js), який потім обробляє action і змінює store
+    dispatch(addContact(data));
+  };
   return (
     <Formik
       initialValues={{
@@ -28,7 +61,7 @@ const ContactsForm = ({ onSubmitForm }) => {
       }}
       validationSchema={ContactSchema}
       onSubmit={(values, actions) => {
-        onSubmitForm(values);
+        onAddContact(values);
         actions.resetForm();
       }}
     >
