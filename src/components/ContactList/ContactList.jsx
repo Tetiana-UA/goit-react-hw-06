@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
+import Contact from "../Contact/Contact";
 
 import styles from "./contact-list.module.css";
 
-const ContactsList = ({ removeContact }) => {
+const ContactsList = () => {
   const contacts = useSelector((state) => state.contacts.items);
   const filter = useSelector((state) => state.filters.name);
 
@@ -23,20 +24,17 @@ const ContactsList = ({ removeContact }) => {
 
   const items = getFilteredContacts();
 
-  //відмальовуємо масив відфільтрованих контактів
-  const elements = items.map(({ id, name, number }) => (
-    <li className={styles.listLi} key={id}>
-      {name}: {number}
-      <button
-        className={styles.listButton}
-        onClick={() => removeContact(id)}
-        type="button"
-      >
-        Delete
-      </button>
-    </li>
-  ));
+  // масив відфільтрованих контактів
 
-  return <ol className={styles.list}>{elements}</ol>;
+  return (
+    <ol className={styles.list}>
+      {items.map((item) => (
+        <li key={item.id}>
+          <Contact item={item} />
+        </li>
+      ))}
+    </ol>
+  );
 };
+
 export default ContactsList;

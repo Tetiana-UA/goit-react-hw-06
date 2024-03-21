@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import ContactsForm from "./components/ContactForm/ContactForm";
 import ContactsList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
-import { addContact, deleteContact } from "./redux/contactsSlice";
-
+import { addContact } from "./redux/contactsSlice";
 
 import styles from "./app.module.css";
 
@@ -68,9 +67,9 @@ const App = () => {
   };
 
   //видадення контакту (dispatch відправляє action deleteContact (import з contactsSlice.js) в store )
-  const onDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-  };
+  //const onDeleteContact = (id) => {
+  //  dispatch(deleteContact(id));
+  //};
 
   //запис значення інпуту для фільтрації
   //const changeFilter = ({ target }) => dispatch(setNewFilter(target.value));
@@ -80,7 +79,7 @@ const App = () => {
       <h2 className={styles.title}>PhoneBook</h2>
       <ContactsForm onSubmitForm={onAddContact} />
       <SearchBox />
-      <ContactsList removeContact={onDeleteContact} />
+      <ContactsList />
     </div>
   );
 };
